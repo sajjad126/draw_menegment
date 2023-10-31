@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+    <%- include('pertials/header.ejs') %>
+    <section class="status">
+        <div class="container">
+            <div class="my_info simple_flex">
+                <div class="basic_info">
+                    <p class="name"><%= logedInUser.username %></p>
+                    <p class="phone"><%= logedInUser.mobile %></p>
+                </div>
+                
+                <div class="running_day">
+                    <p>draw - <%= Number(user_basic.draw_no)+1 %> </p>
+                    <p>day - <%= user_basic.draw_day %></p>
+                </div>
+                <div class="paymented_money">
+                    <p>payment</p>
+                    <p><%= user_basic.running_deposit %></p>
+                </div>
+                <div class="due_monuy">
+                    <p>due</p>
+                    <p> <%= user_basic.due %> </p>
+                </div>
+            </div>
+            <ul class="filter_by_frontend">
+                <li><a href="?stat=all">All</a></li>
+                <li><a href="?stat=new">New</a></li>
+            </ul>
+            <ul class="statement">
+                <li class="statement_list">
+                    <p class="paymented_date">Date and Time</p>
+                    <p class="paid_money">Taka</p>
+                    <p class="paymented_by">accepted by</p>
+                </li>
+                <%  statements.forEach(function(statement){ %>
+                <li class="statement_list">
+                    <p class="paymented_date"><%= statement.date.getDate() %>/<%= statement.date.getMonth()+1 %>/<%= statement.date.getFullYear() %><span class="time"><%= statement.date.getHours() %>:<%= statement.date.getMinutes() %></span></p>
+                    <p class="paid_money"><%= statement.money %></p>
+                    <p class="paymented_by"><%= statement.acceptedBy %></p>
+                </li>
+                <% }) %>
+            </ul>
+        </div>
+    </section>
+
+    
+</body>
+</html>

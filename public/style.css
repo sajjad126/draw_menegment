@@ -1,0 +1,442 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container{
+    width: 500px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5px;
+}
+a{
+    text-decoration: none;
+}
+.simple_flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul{
+    list-style: none;
+}
+li.menu_list {
+    padding: 2px;
+}
+
+header {
+    background: #ffe6ea;
+}
+
+li.menu_list a {
+    padding: 5px;
+    text-transform: uppercase;
+    font-size: 15px;
+    color: black;
+    font-weight: bold;
+    transition: 0.5s;
+}
+
+a.logo {
+    color: crimson;
+    /* font-family: sans-serif; */
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.menu_main.active{
+    display: block;
+    right: 0;
+    top: 0;
+    opacity: 1;
+}
+.menu_toggler {
+    width: 35px;
+    height: 25px;
+    background: black;
+    border-radius: 4px;
+    cursor: pointer;
+    display: none;
+    border: 1px solid crimson;
+    z-index: 1;
+}
+
+li.menu_list a:hover , li.menu_list a.active {
+    color: crimson;
+}
+.user_wrapper {
+    width: 100%;
+}
+
+ul.user_list_menu {
+    width: 100%;
+    padding: 26px 5px;
+    border: 1px solid crimson;
+    border-radius: 10px;
+}
+
+li.single_user {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid crimson;
+    padding: 8px 12px;
+    margin: 6px 0px;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.user_info {
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+    flex-direction: column;
+    color: black;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.user_info a {
+    margin-right: 10px;
+}
+
+.delete_user {
+    width: 15px;
+    height: 15px;
+    background: crimson;
+    color: white;
+    font-weight: bold;
+}
+.modal_opener {
+    width: 100px;
+    margin: auto;
+    background: crimson;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 5px;
+}
+section.modal {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+section.modal.active{
+    display: flex;
+}
+.overlay {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    background: #00000054;
+    z-index: -1;
+}
+
+form#add_user_form {
+    width: 100%;
+    border: 1px solid crimson;
+    background: #ffd3db;
+    padding: 21px;
+    position: relative;
+    border-radius: 10px;
+}
+
+.modal_closer {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border: 1px solid crimson;
+    padding: 3px;
+    border-radius: 3px;
+}
+
+.single_input {
+    padding: 1px 0;
+}
+
+.single_input input {
+    padding: 9px 2px;
+    outline: none;
+    border: 1px solid crimson;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+section.status .container {
+    flex-direction: column;
+}
+
+.my_info {
+    border: 1px solid crimson;
+    border-radius: 10px;
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.basic_info .name {
+    font-size: 16px;
+    margin-bottom: 3px;
+    font-weight: bold;
+    color: crimson;
+}
+
+.basic_info .phone {
+    font-size: 14px;
+    color: #818181;
+}
+
+.paymented_money, .due_monuy, .running_day {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid crimson;
+    padding: 9px;
+    border-radius: 10px;
+}
+
+.paymented_money p, .due_monuy p, .running_day p {
+    font-weight: bold;
+}
+
+.paymented_money p:first-child, .due_monuy p:first-child,.running_day p:first-child {
+    color: crimson;
+    margin-bottom: 4px;
+}
+
+.my_info div {
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+ul.statement {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid crimson;
+    border-radius: 10px;
+}
+
+li.statement_list {
+    display: flex;
+    justify-content: space-between;
+    background: #ebebeb;
+    padding: 10px;
+}
+
+p.paymented_date .time {
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+p.paymented_date {
+    font-size: 17px;
+}
+
+li.statement_list:nth-child(even) {
+    background: white;
+}
+li.statement_list:first-child {
+    padding: 12px 10px;
+    color: crimson;
+    font-weight: bold;
+}
+
+li.statement_list .paymented_date {width: 40%;}
+
+li.statement_list .paymented_by {
+    width: 30%;
+    text-align: end;
+}
+.user_money {
+    display: flex;
+    padding: 0px;
+}
+
+.user_money div {
+    /* padding: 0 10px; */
+    margin: 0 10px;
+    cursor: pointer;
+    width: 30px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.add_money {
+    border: 1px solid crimson;
+}
+section.money_modal {
+    position: fixed;
+    background: #00000069;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+section.money_modal.active{
+    display: flex;
+}
+
+section.money_modal .container {
+    border: 1px solid crimson;
+    background: #ffffffeb;
+    position: relative;
+}
+.money_modal_closer {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border: 1px solid crimson;
+    cursor: pointer;
+}
+a.user_info p {
+    padding: 1px;
+}
+
+a.user_info p:last-child {
+    font-size: 14px;
+    font-weight: normal;
+}
+input[type=submit]{
+    border: 1px solid crimson;
+    padding: 8px 15px;
+    color: crimson;
+    margin-top: 8px;
+    border-radius: 9px;
+}
+form {
+    width: 100%;
+    text-align: center;
+}
+ul.option {
+    border: 1px solid crimson;
+    padding: 10px;
+    width: 45%;
+    border-radius: 6px;
+}
+
+ul.option li a {padding: 2px 5px;display: block;color: black;text-transform: capitalize;
+display: flex;
+align-items: center;}
+
+
+ul.option.wined li a{
+    color: green;
+}
+
+ul.option li {
+    margin-bottom: 3px;
+}
+ul.option h2 {padding: 6px 6px;color: crimson;text-transform: capitalize;}
+.draw_picker .container{
+    align-items: normal;
+}
+ul.option {
+    height: max-content;
+}
+ul.option .pick {
+    padding: 10px 20px;
+    background: crimson;
+    width: max-content;
+    color: white;
+    border-radius: 5px;
+    margin: 13px 0px 0px 6px;
+    cursor: pointer;
+}
+ul.option li a div {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+}
+
+ul.option li a p {
+    font-size: 18px;
+}
+
+ul.option li a div span:last-child {
+    font-size: 13px;
+    color: #727272;
+}
+ul.option.wined li a div span:last-child{
+    color: green;
+}
+ul.filter_by_frontend {
+    width: 100%;
+    display: flex;
+    border: 1px solid crimson;
+    margin-bottom: 20px;
+    padding: 10px 18px;
+    border-radius: 8px;
+}
+
+ul.filter_by_frontend li a {border: 1px solid crimson;padding: 5px 12px;display: block;margin-right: 9px;background: crimson;color: white;border-radius: 4px;}
+li.menu_list.modarator_btn {
+    text-align: right;
+}
+
+li.menu_list.modarator_btn a {
+    display: inline-block;
+}
+
+@media screen and (max-width: 500px) {
+    .container{
+        width: 90vW;
+        font-size: 15px;
+    }
+    .menu_main{
+    opacity: 0;
+    }
+    .menu_toggler{
+        display: block;
+    }
+    .menu_main {
+        position: absolute;
+        background: #000000bf;
+        top: -100%;
+        right: 0px;
+        height: 100vh;
+        width: 180px;
+        transition: 0.3s;
+        transition-timing-function: ease-in-out;
+    }
+    .menu{
+        flex-direction: column;
+        margin-top: 80px;
+    }
+    li.menu_list {
+        padding: 15px 2px;
+    }
+    li.menu_list a{
+        color: white;
+    }
+    .draw_picker .container{
+        flex-direction: column;
+    }
+    ul.option{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    li.menu_list.modarator_btn a {
+        color: black;
+    }
+}

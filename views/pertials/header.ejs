@@ -1,0 +1,66 @@
+<header>
+    <div class="container">
+        <div>
+            <h1><a href="/" class="logo">DRAW</a></h1>
+        </div>
+        <div class="menu_toggler"></div>
+        <div class="menu_main">
+            <ul class="menu simple_flex">
+                <% if(logedInUser && logedInUser.username){ %>
+                    <li class="menu_list">
+                        <a class="status" href="/">Status</a>
+                    </li>
+                    <li class="menu_list">
+                        <a class="picker" href="/picker">draw picker</a>
+                    </li>
+                    <li class="menu_list">
+                        <a class="users" href="/users">Users</a>
+                    </li>
+                    <li class="menu_list">
+                        <a class="login" href="#" onclick="logout()" >log out</a>
+                    </li>
+                <% }else{ %>
+                    <li class="menu_list">
+                        <a class="status" href="/">Status</a>
+                    </li>
+                    <li class="menu_list">
+                        <a class="picker" href="/picker">draw picker</a>
+                    </li>
+                    <li class="menu_list">
+                        <a class="users" href="/users">Users</a>
+                    </li>
+                    <li class="menu_list">
+                        <a class="login" href="/login" >log in</a>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<script>
+    // let pathname = window.location.pathname.slice(1).split("/")[0];
+    // if(pathname == ""){
+    //     let activeted = document.querySelector(`.status`).classList.add("active");
+    // }else{
+    //     let activeted = document.querySelector(`.${pathname}`).classList.add("active");
+    // }
+    // console.log(activeted)
+    // logout funtion 
+    function logout(){
+        fetch("/login",{
+            method: "DELETE"
+        })
+        setTimeout(() => {
+            
+            window.location.replace("/login")
+        }, 1000);
+    }
+
+    // menu toggle 
+    const menu_toggle = document.querySelector(".menu_toggler");
+    const main_menu = document.querySelector(".menu_main");
+    menu_toggle.addEventListener("click",()=>{
+        main_menu.classList.toggle("active")
+    })
+</script>

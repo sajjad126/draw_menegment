@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+    <%- include('pertials/header.ejs') %>
+    <section class="status">
+        <div class="container">
+            <ul class="statement">
+                <li class="statement_list">
+                    <p class="paymented_date">Date and Time</p>
+                    <p class="paid_money">Owner/Taka</p>
+                    <p class="paymented_by">accepted by</p>
+                    <p class="paymented_by">acception</p>
+                </li>
+                <%  statements.forEach(function(statement){ %>
+                <li class="statement_list">
+                    <p class="paymented_date"><%= statement.date.getDate() %>/<%= statement.date.getMonth()+1 %>/<%= statement.date.getFullYear() %><span class="time"><%= statement.date.getHours() %>:<%= statement.date.getMinutes() %></span></p>
+                    <p class="paid_money"><%= statement.ownerName %>/<%= statement.money %></p>
+                    <p class="paymented_by"><%= statement.acceptedBy %></p>
+                    <a onclick="mainAccept(this,'<%= statement._id %>')"  href="#">accept</a>
+                    
+                </li>
+                <% }) %>
+            </ul>
+        </div>
+    </section>
+    <script>
+        async function mainAccept(e,id){
+            e.parentNode.remove();
+            let response = await fetch(`/moderator/${id}`, {
+                method: "POST",
+            })
+            
+            // let result = await response.json();
+        }
+    </script>
+</body>
+</html>

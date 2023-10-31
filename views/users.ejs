@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> </title>
+    <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+    <%- include('pertials/header.ejs') %>
+    <section class="user_list">
+        <div class="container">
+            <div class="user_wrapper">
+                <ul class="user_list_menu">
+                    <div class="modal_opener">add user</div> 
+                    <% users.forEach(function(user){ %>
+                    <li class="single_user" id="<%= user._id %>">
+                        <a href="/users/<%= user._id %>" class="user_info">
+                            <p><%= user.name %></p>
+                            <p><%= user.mobile %></p>
+                        </a>
+                        <div class="user_money">
+                            <div class="add_money" onclick="toggleMM('<%= user.name %>','<%= user._id %>')">+</div>
+                            <div class="delete_user" onclick="deleteUser('<%= user._id %>')">-</div>
+                        </div>
+                    </li>
+                    <% }) %>
+                    <li class="menu_list modarator_btn">
+                        <a  href="/moderator">modaretor Penel</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section class="modal">
+        <div class="overlay"></div>
+        <div class="container">
+            <form method="POST" action="/users"  id="add_user_form">
+                <div class="modal_closer">close</div>
+                <div class="single_input"><input type="text" name="name" placeholder="name"></div>
+                <div class="single_input"><input type="text" name="user_name" placeholder="user name"></div>
+                <div class="single_input"><input type="number" name="mobile" placeholder="mobile"></div>
+                <div class="single_input"><input type="password" name="password" placeholder="password"></div>
+                <input type="submit" value="Add user">
+            </form>
+        </div>
+    </section>
+    <section class="money_modal">
+        <div class="container">
+            <form method="POST" action="/users"  id="add_money_form">
+                <div class="money_modal_closer" onclick="toggleMM('none')">close</div>
+                <p class="selected_name">arman</p>
+                <div class="single_input"><input class="money_input" type="number" name="money"  placeholder="Taka"></div>
+                <div class="single_input"><input  type="datetime-local" name="datetime"  placeholder="date"></div>
+                <input type="submit" value="Add Money">
+            </form>
+        </div>
+    </section>
+    
+
+    <script>
+        // modal open and close 
+        const fullForm = document.querySelector(".modal");
+        const modalOpener = document.querySelector(".modal_opener");
+        const modalCloser = document.querySelector(".modal_closer");
+        const overlay = document.querySelector(".overlay");
+
+        modalOpener.addEventListener("click",()=>{
+            fullForm.classList.add("active")
+        })
+        modalCloser.addEventListener("click",()=>{
+            fullForm.classList.remove("active")
+        })
+        overlay.addEventListener("click",()=>{
+            fullForm.classList.remove("active")
+        })
+
+        // money modal open close 
+        const money_input = document.querySelector(".money_input");
+        const money_modal = document.querySelector(".money_modal");
+        const selected_name = document.querySelector(".selected_name");
+        const add_money_form = document.querySelector("#add_money_form");
+        function toggleMM(selectedName, userId){
+            money_modal.classList.toggle("active");
+            selected_name.innerHTML = selectedName ;
+            add_money_form.action = `/users/${userId}`;
+            money_input.focus();
+        }
+
+        // delete user 
+        async function deleteUser(userId){
+            // console.log(document.getElementById(`${userId}`));
+            document.getElementById(`${userId}`).remove();
+            let response = await fetch(`/users/${userId}`, {
+                method: "DELETE",
+            })
+            
+            let result = await response.json();
+        }
+    </script>
+</body>
+</html>

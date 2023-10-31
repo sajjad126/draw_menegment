@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+    <%- include('pertials/header.ejs') %>
+    
+    <section class="draw_picker">
+        <div class="container">
+            <ul class="option">
+                <h2>pendings...</h2>
+                <% pendding_users.forEach((pendding_user, index)=>{ %>
+                <li class="single_option">
+                    <a href="/users/<%= pendding_user._id %>">
+                        <p><%= index+1 %>)</p>
+                        <div>
+                            <span><%= pendding_user.user_name %>/ <%= pendding_user.name %></span>
+                            <span><%= pendding_user.mobile %></span>
+                        </div>
+                    </a>
+                </li>
+                <% }) %>
+                <div class="pick" onclick="openFunc('<%= pendding_users.length %>')">pick</div>
+            </ul>
+            <ul class="option wined">
+                <h2>wins</h2>
+                <% wined_users.forEach((wined_user, index)=>{ %>
+                <li class="single_option">
+                    <a href="/users/<%= wined_user._id %>">
+                        <p><%= wined_user.draw_win %>)</p>
+                        <div>
+                            <span><%= wined_user.name %></span>
+                            <span><%= wined_user.mobile %></span>
+                        </div>
+                    </a>
+                </li>
+                <% }) %>
+            </ul>
+        </div>
+    </section>
+
+    <section class="picker_modal money_modal">
+        <div class="container">
+            <form method="post" action="/"  id="add_money_form">
+                <div class="money_modal_closer" onclick="cloesFunc()">close</div>
+                <p class="selected_name">/</p>
+                <p class="selected_mobile">01836765036</p>
+                <input type="submit" id="update_wined" value="confirm" >
+            </form>
+        </div>
+    </section>
+    <script>
+        const add_money_form = document.querySelector("#add_money_form");
+        const modal_opener = document.querySelector(".pick");
+        const modal = document.querySelector(".picker_modal");
+        const selected_name = document.querySelector(".selected_name");
+        const selected_mobile = document.querySelector(".selected_mobile");
+        async function openFunc(index){
+            modal.classList.add("active");
+            const response = await fetch("/picker/pick", {
+                method: "GET",
+            });
+            const result = await response.json();
+            selected_name.innerHTML = `${result.wined.user_name}/${result.wined.name}`;
+            selected_mobile.innerHTML = result.wined.mobile;
+            add_money_form.action = `/picker/${result.wined._id}`
+        };
+
+        // async function update_wined(e){
+        //     e.preventDefault();
+        //         const nresponse = await fetch(`/users/${result.wined._id}`, {
+        //         method: "put",
+        //     });
+        //     const nresult = await nresponse.json();
+        //     await console.log(nresult);
+            
+        //     }
+
+        function cloesFunc(){
+            modal.classList.remove("active");
+            selected_name.innerHTML = "";
+            selected_mobile.innerHTML = "";
+        };
+    </script>
+</body>
+</html>
