@@ -10,6 +10,6 @@ const router = express.Router();
 
 router.get("/",decoratHtmlRes("picker"),checkLogin, getPicker);
 router.get("/pick",decoratHtmlRes("picker"),checkLogin, getPick);
-router.post("/:id",decoratHtmlRes("Users"),checkLogin,requireRole(["admin","moderator"]), updateWins)
+router.post("/:id",decoratHtmlRes("Users"),checkLogin,requireRole(["moderator"]), updateWins)
 
 module.exports = router;

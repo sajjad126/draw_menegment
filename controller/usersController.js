@@ -1,5 +1,6 @@
 const People = require("../models/people.js");
 const Statement = require("../models/statement.js");
+const bcrypt = require("bcrypt");
 
 async function getUsers(req, res, next){
     
@@ -12,6 +13,76 @@ async function getUsers(req, res, next){
         next(error)
     }
 };
+
+async function getSetting(req, res, next){
+    try {
+        const user = await People.findOne({
+            _id: req.params.id,
+        });
+        user.password = "";
+        res.render("setting",{
+            user: user,
+        })
+    } catch (error) {
+        
+    }
+}
+
+async function updateUser(req, res, next){
+    try {
+        const user = await People.findOne({
+            _id: req.params.id,
+        });
+        if(user && user._id){
+            if(await bcrypt.compare(req.body.password , user.password)){
+                if(req.body.new_password && req.body.new_password == req.body.re_enter_password){
+                    // console.log(req.body)
+                    const hashedPassword = await bcrypt.hash(req.body.new_password,10);
+                    console.log(hashedPassword);
+                    const update = await People.updateOne({_id: req.params.id},{
+                        $set:{
+                            name: req.body.name,
+                            user_name: req.body.user_name,
+                            role: req.body.role,
+                            mobile: req.body.mobile,
+                            password: hashedPassword,
+                        }
+                    },{upsert:true, useFindAndModify:false},function(err, doc){
+                        if(err){
+                            console.log(err)
+                        }else{
+                            res.status(200).json({msg: "update succes"});
+                        }
+                    });
+                    res.redirect("/");
+
+                }else{
+                    // console.log("hello")
+                    const update = await People.updateOne({_id: req.params.id},{
+                        $set:{
+                            name: req.body.name,
+                            user_name: req.body.user_name,
+                            role: req.body.role,
+                            mobile: req.body.mobile,
+                        }
+                    },{upsert:true, useFindAndModify:false},function(err, doc){
+                        if(err){
+                            console.log(err)
+                        }else{
+                            res.status(200).json({msg: "update succes"});
+                        }
+                    });
+                    res.redirect("/");
+                }
+            }else{
+                res.redirect(`/users`)
+            }
+        }
+        
+    } catch (error) {
+        
+    }
+}
 
 async function getOneUser(req, res, next){
     try {
@@ -39,6 +110,10 @@ async function getOneUser(req, res, next){
         var Difference_In_Time = now.getTime() - startForm.date.getTime();
         var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
         const counterArr = Math.ceil(Difference_In_Days).toString().split("");
+        if(Difference_In_Days => 100){
+            counterArr.shift();
+            counterArr[0] = Number(counterArr[0])+10;
+        }
         counterArr.push(startForm.money);
         if(counterArr[1]== 0){
             counterArr[0] = counterArr[0]-1
@@ -78,12 +153,13 @@ async function getOneUser(req, res, next){
 
 async function addUser(req, res){
     // newUser = new User({...req.body,});
+    const hashedPassword = await bcrypt.hash(req.body.password , 10)
     try {
         const doc =  new People({
             name:req.body.name,
             user_name:req.body.user_name,
             mobile:req.body.mobile,
-            password:req.body.password,
+            password: hashedPassword,
             role:req.body.role,
         })
         await doc.save();
@@ -131,6 +207,8 @@ async function removeUser(req, res, next){
 
 module.exports = {
     getUsers,
+    getSetting,
+    updateUser,
     getOneUser,
     addUser,
     addMoney,

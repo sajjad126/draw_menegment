@@ -172,6 +172,8 @@ form#add_user_form {
     border: 1px solid crimson;
     border-radius: 10px;
     padding-left: 10px;
+    width: 200px;
+    margin-bottom: 3px;
 }
 section.status .container {
     flex-direction: column;
@@ -396,6 +398,14 @@ li.menu_list.modarator_btn {
 
 li.menu_list.modarator_btn a {
     display: inline-block;
+}
+.single_input select {
+    padding: 9px 2px;
+    outline: none;
+    border: 1px solid crimson;
+    border-radius: 10px;
+    width: 200px;
+    margin-bottom: 3px;
 }
 
 @media screen and (max-width: 500px) {

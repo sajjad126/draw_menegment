@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+    <%- include('pertials/header.ejs') %>
+    <section class="status">
+        <div class="container">
+            <h1>settings</h1>
+            <div class="local_info">
+                <div><%= user.name %></div>
+                <div><%= user.mobile %></div>
+            </div>
+            <form action="/users/setting/<%= user._id %>" method="post" id="add_user_form">.
+                <div class="single_input">
+                    <span>name</span>
+                    <input type="text" name="name" placeholder="name" value="<%= user.name %>">
+                </div>
+                <div class="single_input">
+                    <span>user name</span>
+                    <input type="text" name="user_name" placeholder="user_name" value="<%= user.user_name %>">
+                </div>
+                <div class="single_input">
+                    <span>mobile</span>
+                    <input type="number" name="mobile" placeholder="mobile" value="<%= user.mobile %>">
+                </div>
+                <div class="single_input">
+                    <span>role</span>
+                    <select name="role" id="role">
+                        <option value="<%= user.role %>"><%= user.role %></option>
+                        <% if(user.role == "admin"){ %>
+                        <option value="user">user</option>
+                        <% }else{%>
+                        <option value="admin">admin</option>
+                        <% }%>
+                    </select>
+                </div>
+                <div class="single_input">
+                    <span>new pass</span>
+                    <input name="new_password" type="password" placeholder="new password(optional)">
+                </div>
+                <div class="single_input">
+                    <span>re-enter pass</span>
+                    <input name="re_enter_password" type="password" placeholder="re-enter password(optional)">
+                </div>
+                <div class="single_input">
+                    <span>older password</span>
+                    <input name="password" type="password" placeholder="old password" required>
+                </div>
+                <input type="submit" value="update">
+            </form>
+            <!-- <%= user.name %> -->
+        </div>
+    </section>
+    
+</body>
+</html>

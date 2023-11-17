@@ -53,7 +53,7 @@ async function updateWins(req, res, next){
                 res.status(200).json({msg: "update succes"});
             }
         });
-        res.redirect("/picker")
+        res.redirect("/picker");
     } catch (error) {
         next(error)
     }

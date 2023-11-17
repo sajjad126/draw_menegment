@@ -1,5 +1,6 @@
 const People = require("../models/people.js")
 const jwt  = require("jsonwebtoken")
+const bcrypt = require("bcrypt")
 const createError = require("http-errors")
 
 function getLogin(req, res, next){
@@ -14,7 +15,8 @@ async function login(req, res, next){
         });
         
         if(user && user._id){
-            if(user.password == req.body.password){
+            // if(user.password == req.body.password){
+            if(await bcrypt.compare(req.body.password , user.password)){
                 
                 const userObject = {
                     id: user._id,

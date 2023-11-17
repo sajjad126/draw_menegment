@@ -10,7 +10,6 @@ const checkLogin = async (req, res, next) => {
             const decoded = jwt.verify(token, process.env.COOKIE_SECRET);
             req.user = decoded;
             res.locals.logedInUser = decoded;
-            
             // this code day counter 
             const startForm = await Statement.findOne({
                 ownerId: "starting_form"
@@ -19,7 +18,12 @@ const checkLogin = async (req, res, next) => {
             var Difference_In_Time = now.getTime() - startForm.date.getTime();
             var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
             const counterArr = Math.ceil(Difference_In_Days).toString().split("");
+            if(Difference_In_Days => 100){
+                counterArr.shift();
+                counterArr[0] = Number(counterArr[0])+10;
+            }
             counterArr.push(startForm.money);
+
             if(counterArr[1]== 0){
                 counterArr[0] = counterArr[0]-1
                 counterArr[1] = 10;
